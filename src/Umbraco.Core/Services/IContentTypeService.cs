@@ -22,7 +22,7 @@ namespace Umbraco.Core.Services
         int CountMediaTypes();
 
         /// <summary>
-        /// Validates the composition, if its invalid a list of property type aliases that were duplicated is returned
+        /// Validates the composition, if its invalid a list of property type aliases that were duplicated is returnedd
         /// </summary>
         /// <param name="compo"></param>
         /// <returns></returns>
