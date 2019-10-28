@@ -85,16 +85,21 @@
         <div class="umb-table-body">
             <div class="umb-table-row"
                 ng-repeat="group in vm.filteredUserGroups track by $index"
-                ng-click="vm.selectUserGroup(group, $index, $event)"
                 ng-class="{'-selected': group.selected, '-selectable': group.hasAccess && !group.isSystemUserGroup}">
 
+                <!-- If group.hasAccess and it's not a system group make the row selectable -->
+                <button type="button" class="umb-table__select-action" ng-if="group.hasAccess && !group.isSystemUserGroup" ng-click="vm.selectUserGroup(group, $index, $event)">
+                    <span class="sr-only">
+                        <localize key="visuallyHiddenTexts_selectRow">Select row</localize>: {{group.name}}</span>
+                </button>
+
                 <div class="umb-table-cell">
-                    <i ng-if="group.icon" class="umb-table-body__icon umb-table-body__fileicon {{ group.icon }}"></i>
-                    <i class="umb-table-body__icon umb-table-body__checkicon icon-check"></i>
+                    <i ng-if="group.icon" class="umb-table-body__icon umb-table-body__fileicon {{ group.icon }}" aria-hidden="true"></i>
+                    <i class="umb-table-body__icon umb-table-body__checkicon icon-check" aria-hidden="true"></i>
                 </div>
                 <div class="umb-table-cell">
                     <a
-                        class="umb-table-body__link"
+                        class="umb-table-body__link -has-zindex"
                         ng-class="{'cursor-pointer': group.hasAccess, 'cursor-not-allowed': !group.hasAccess}"
                         ng-click="vm.clickUserGroupName(group, $event)"
                         ng-href="#{{::vm.getEditPath(group)}}"
@@ -104,7 +109,9 @@
                 <div class="umb-table-cell">
                     <div>
                         <span ng-repeat="section in group.sections">{{ section.name }}<span ng-if="!$last">, </span></span>
-                        <span ng-if="group.sections.length === 0">All sections</span>
+                        <span ng-if="group.sections.length === 0">
+                            <localize key="user_allSections">All sections</localize>
+                        </span>
                     </div>
                 </div>
                 <div class="umb-table-cell umb-table-cell--small">
