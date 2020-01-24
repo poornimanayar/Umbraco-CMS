@@ -271,8 +271,7 @@
         function createButtons(content) {
 
             // for trashed and element type items, the save button is the primary action - otherwise it's a secondary action
-            $scope.page.saveButtonStyle = content.trashed || content.isElement ? "primary" : "info";
-
+            $scope.page.saveButtonStyle = content.trashed || content.isElement || content.isBlueprint ? "primary" : "info";
             // only create the save/publish/preview buttons if the
             // content app is "Conent"
             if ($scope.app && $scope.app.alias !== "umbContent" && $scope.app.alias !== "umbInfo" && $scope.app.alias !== "umbListView") {
@@ -792,6 +791,7 @@
                             $scope.content.variants[i].expireDate = model.variants[i].expireDate;
                             $scope.content.variants[i].releaseDateFormatted = model.variants[i].releaseDateFormatted;
                             $scope.content.variants[i].expireDateFormatted = model.variants[i].expireDateFormatted;
+                            $scope.content.variants[i].save = model.variants[i].save;
                         }
 
                         model.submitButtonState = "busy";
